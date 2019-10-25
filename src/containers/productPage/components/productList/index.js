@@ -13,65 +13,84 @@ class ProductList extends Component {
           list:[
               {
                  src:require("../../../../images/servicer.png"),
-                 name:"Servers" 
+                 name:"Servers",
+                 id:20 
               },
               {
                 src:require("../../../../images/mainboard.png"),
-                name:"Boards" 
+                name:"Boards",
+                id:11
               },
               {
                 src:require("../../../../images/storage.png"),
-                name:"Storage" 
+                name:"Storage",
+                id:19  
               },
               {
                 src:require("../../../../images/GPU.png"),
-                name:"GPU服务器" 
+                name:"GPU服务器",
+                id:21 
               },
               {
                 src:require("../../../../images/CPU.png"),
-                name:"Processors" 
+                name:"Processors",
+                id:12  
               },
               {
                 src:require("../../../../images/memory.png"),
-                name:"Memory" 
+                name:"Memory",
+                id:13  
               },
               {
                 src:require("../../../../images/crate.png"),
-                name:"Chassis" 
+                name:"Chassis",
+                id:17
               },
               {
                 src:require("../../../../images/power.png"),
-                name:"Power Supplies" 
+                name:"Power Supplies",
+                id:16  
               },
               {
                 src:require("../../../../images/HDD.png"),
-                name:"HDD机械硬盘" 
+                name:"HDD机械硬盘",
+                id:15  
               },
               {
                 src:require("../../../../images/SSD.png"),
-                name:"SSD固态硬盘" 
+                name:"SSD固态硬盘",
+                id:14  
               },
               {
                 src:require("../../../../images/GPU.png"),
-                name:"GPU显卡" 
+                name:"GPU显卡",
+                id:20  
               },
               {
                 src:require("../../../../images/Raid_Cards.png"),
-                name:"Raid Cards" 
+                name:"Raid Cards",
+                id:298
               },
               {
                 src:require("../../../../images/Network_Cards.png"),
-                name:"Netword Cards" 
+                name:"Netword Cards",
+                id:295 
               }
           ]
       }  
     }
 
-    onPress = ()=>{
+    onPress = (i,j)=>{
+
+      let index = i*3+j;
+
+      index = index.toString();
 
       const {dispatch, nav} = this.props;
 
-      dispatch(NavigationActions.navigate({routeName: 'productType',params: {}}));
+      dispatch(NavigationActions.navigate({routeName: 'productType',params: {
+        type_id:this.state.list[index].id.toString()
+      }}));
 
     }  
 
@@ -88,7 +107,7 @@ class ProductList extends Component {
            let j = i*3; 
 
            let dom = <View style={styles.row} key={i}>
-                        <TouchableHighlight onPress={this.onPress} style={[(list[j+1]?{flex:1}:{flex:1/3})]}>
+                        <TouchableHighlight onPress={()=>{this.onPress(i,0)}} style={[(list[j+1]?{flex:1}:{flex:1/3})]}>
                           <View style={[styles.item,styles.item_one,(list[j+1]?null:styles.item_last)]}>
                               <Image source={list[j].src} style={styles.img} resizeMode="cover"/>
                               <Text style={styles.font}>{list[j].name}</Text>
@@ -96,7 +115,7 @@ class ProductList extends Component {
                         </TouchableHighlight>  
                         {
                            list[j+1]? 
-                           <TouchableHighlight onPress={this.onPress} style={{flex:1}}>
+                           <TouchableHighlight onPress={()=>{this.onPress(i,1)}} style={{flex:1}}>
                              <View style={[styles.item,styles.item_two]}>
                                         <Image source={list[j+1].src} style={styles.img} resizeMode="cover"/>
                                         <Text style={styles.font}>{list[j+1].name}</Text>
@@ -106,7 +125,7 @@ class ProductList extends Component {
                         }
                         {
                            list[j+2]?
-                           <TouchableHighlight onPress={this.onPress} style={{flex:1}}> 
+                           <TouchableHighlight onPress={()=>{this.onPress(i,2)}} style={{flex:1}}> 
                              <View style={[styles.item,styles.item_three]}>
                                         <Image source={list[j+2].src} style={styles.img} resizeMode="cover"/>
                                         <Text style={styles.font}>{list[j+2].name}</Text>

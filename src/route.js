@@ -7,6 +7,12 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 import NewsPage from "./containers/newsPage";
 import ProductPage from "./containers/productPage";
 import productTypePage from "./containers/productTypePage";
+import productListPage from "./containers/productListPage";
+import productDetailPage from "./containers/productDetailPage";
+import comparePage from "./containers/comparePage";
+import newsDetail from "./containers/newsDetail";
+import fuzzyPage from "./containers/fuzzyPage";
+import searchDetail from "./containers/searchDetail";
 
 const newsStack = createStackNavigator({
     newsPage:{
@@ -14,7 +20,17 @@ const newsStack = createStackNavigator({
         navigationOptions: ({ navigation }) => ({
             header:null
         })
+    },
+    news_detail:{
+      screen:newsDetail,
+      navigationOptions: ({ navigation }) => ({
+       header:null            
+      })  
     }
+},{
+  navigationOptions:({navigation})=>({
+    tabBarVisible:navigation.state.index>0 ? false : true
+  }),
 })
 
 const productStack = createStackNavigator({
@@ -27,9 +43,43 @@ const productStack = createStackNavigator({
     productType:{
       screen: productTypePage,
       navigationOptions: ({ navigation }) => ({
-        title:"产品列表"           
+        header:null            
       })
+    },
+     productList:{
+       screen:productListPage,
+       navigationOptions: ({ navigation }) => ({
+        header:null            
+       })    
+     },
+     productDetail:{
+       screen:productDetailPage,
+       navigationOptions: ({ navigation }) => ({
+        header:null            
+       })  
+     },
+     compare_page:{
+      screen:comparePage,
+      navigationOptions: ({ navigation }) => ({
+       header:null            
+      })  
+     },
+     fuzzy_page:{
+       screen:fuzzyPage,
+       navigationOptions: ({ navigation }) => ({
+        header:null            
+       })  
+     },
+     search_detail:{
+      screen:searchDetail,
+      navigationOptions: ({ navigation }) => ({
+       header:null            
+      })  
     }
+},{
+  navigationOptions:({navigation})=>({
+    tabBarVisible:navigation.state.index>0 ? false : true
+  }),
 })
 
 export default createAppContainer(

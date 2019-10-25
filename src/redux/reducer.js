@@ -1,6 +1,14 @@
 import {combineReducers} from 'redux'
 import {rootCom} from './navigator';
 import RootNavigator from "../route";
+import product_type from "./modules/productTypePage/reducer";
+import product_list from "./modules/productListPage/reducer";
+import product_detail from "./modules/productDetailPage/reducer";
+import compare_data from "./modules/compareComponent/reducer";
+import compare_page from "./modules/comparePage/reducer";
+import news_page from "./modules/newsPage/reducer";
+import fuzzy_page from "./modules/fuzzyPage/reducer";
+import search_detail from "./modules/searchDetailPage/reducer";
 
 //1.指定默认state
 const navState = RootNavigator.router.getStateForAction(RootNavigator.router.getActionForPathAndParams(rootCom));
@@ -19,7 +27,15 @@ const navReducer = (state = navState, action) => {
  * @type {Reducer<any> | Reducer<any, AnyAction>}
  */
 const index = combineReducers({
-    nav: navReducer
+    nav: navReducer,
+    product_type,
+    product_list,
+    product_detail,
+    compare_data,
+    compare_page,
+    news_page,
+    fuzzy_page,
+    search_detail
 });
 
 export default index;
