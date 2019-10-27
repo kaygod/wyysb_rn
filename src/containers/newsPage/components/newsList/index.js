@@ -129,10 +129,10 @@ class Newslist extends Component {
 
         const { cur_page,final_page } = this.props.data.page[this.state.brand_id];
         
-        if(cur_page>=final_page){
+        if(cur_page>=final_page || cur_page == 2){
           return null;
         }else{       
-          return ListSpinner;       
+          return <ListSpinner color="#000" size="small"/>;       
         }
        
     }
@@ -143,19 +143,26 @@ class Newslist extends Component {
       this.state = {
         brand_id
       }
+      this.loadEvent = this.props.navigation.addListener("willFocus",()=>{
+        this.props.newsAction.updateType(brand_id);
+      })
+    }
+
+    componentWillUnmount(){
+        this.loadEvent.remove();
     }
 
     componentDidMount(){
         
         const { selType } = this.props.newsAction;
 
-        selType(this.state.brand_id);
+        selType(this.state.brand_id,this.props.navigation.isFocused());
 
     }
 
     shouldComponentUpdate(nextProps,nextState){
       
-      if(nextProps.data.brand_id == nextState.brand_id){
+      if(this.props.navigation.isFocused()){
           return true;
       }else{
           return false;

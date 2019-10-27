@@ -15,7 +15,7 @@ export const types ={
 
 export const actions ={
 
-  selType(brand_id){
+  selType(brand_id,isFocus = true){
 
     return (dispatch)=>{
      
@@ -29,7 +29,8 @@ export const actions ={
               cur_page:1,
               brand_id,
               selType:true,
-              loadMore:false
+              loadMore:false,
+              isFocus
           },
           types:[types["NEWS_PAGE/NEWS_REQUESTTING"],types["NEWS_PAGE/NEWS_REQUEST_SUCCESS"],types["NEWS_PAGE/NEWS_REQUEST_FAIL"]]
       }
@@ -125,4 +126,12 @@ export const getNavList = (state)=>{
 
   return state.news_page.nav_list;
 
+}
+
+export const getBrandId = (state)=>{
+  return state.news_page.brand_id;
+}
+
+export const getBrandList = (state,brand_id)=>{
+  return state.news_page.news_list[brand_id] 
 }

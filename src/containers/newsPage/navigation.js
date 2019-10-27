@@ -41,7 +41,6 @@ const TopTabNavigator = (list,props)=>{
             navigationOptions: {
                 tabBarLabel: value.brand_name,
                 tabBarOnPress({navigation,defaultHandler}){
-                    props.newsAction.updateType(navigation.state.params.brand_id)
                     defaultHandler();
                 }
             }

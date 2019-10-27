@@ -17,33 +17,39 @@ export default (state = initailState,action)=>{
    case types["NEWS_PAGE/NEWS_REQUESTTING"]:
 
       return {...state,
-        news_request_flag:((action.extra && action.extra.loadMore)?0:1)
+        news_request_flag:((action.extra && action.extra.loadMore)?0:1),
+        loadMore:((action.extra && action.extra.loadMore)?1:0)
       };
 
    case types["NEWS_PAGE/NEWS_REQUEST_SUCCESS"]:
 
         const { msg_list,total } = action.response;
 
-        const { cur_page,brand_id } = action.extra;
+        const { cur_page,brand_id,isFocus } = action.extra;
 
         if(action.extra.selType){
 
-          return {...state,news_request_flag:0,news_list:typeDataHandler(msg_list,state,brand_id),page:pageHanlder(cur_page,total,brand_id,state.page),brand_id};
+          let obj = {...state,news_request_flag:0,loadMore:0,news_list:typeDataHandler(msg_list,state,brand_id),page:pageHanlder(cur_page,total,brand_id,state.page)};
+
+          if(isFocus){
+            obj.brand_id = brand_id;
+          }
+
+          return obj;
 
         }else{
 
-          return {...state,news_request_flag:0,news_list:newsDataHandler(state,msg_list,action.extra),page:pageHanlder(cur_page,total,state.brand_id,state.page)};
+          return {...state,news_request_flag:0,loadMore:0,news_list:newsDataHandler(state,msg_list,action.extra),page:pageHanlder(cur_page,total,state.brand_id,state.page)};
 
         }
           
    case types["NEWS_PAGE/NEWS_REQUEST_FAIL"]:
 
-        return {...state,news_request_flag:0};
+        return {...state,news_request_flag:0,loadMore:0};
 
    case types["NEWS_PAGE/NAV_REQUESTTING"]:
        
         return {...state,nav_request_flag:1};
-
 
    case types["NEWS_PAGE/NAV_REQUEST_SUCCESS"]:
        
@@ -59,7 +65,7 @@ export default (state = initailState,action)=>{
 
     case types["NEWS_PAGE/UPDATE_TYPE"]:
       
-        return {...state,brand_id:action.value,news_request_flag:0}
+        return {...state,brand_id:action.value}
 
     default:
         

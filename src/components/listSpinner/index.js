@@ -7,7 +7,7 @@ export default class ListSpinner extends Component {
     render() {
         return (
             <View style={styles.container}>
-                  <ActivityIndicator size="large" color="#00ff00"></ActivityIndicator>
+                  <ActivityIndicator size={this.props.size} color={this.props.color}></ActivityIndicator>
             </View>
         )
     }
